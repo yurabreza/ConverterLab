@@ -4,7 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Cities",id ="_id")
+@Table(name = "Cities")
 public class City extends Model {
 
 

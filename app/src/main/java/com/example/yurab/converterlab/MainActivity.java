@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.service.UpdateService;
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startService(new Intent(this, UpdateService.class));
+      // startService(new Intent(this, UpdateService.class));
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
 
@@ -34,8 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.btn1):
-                deleteDatabase("currency_cash.db");
-                ActiveAndroid.clearCache();
+                startService(new Intent(this, UpdateService.class));
                 break;
             case (R.id.btn2):
                 Toast.makeText(this, getOrgz().get(i).getTitle().toString(), Toast.LENGTH_SHORT).show();

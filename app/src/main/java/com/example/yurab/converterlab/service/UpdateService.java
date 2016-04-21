@@ -43,11 +43,11 @@ public class UpdateService extends Service {
 
         Call<PublicCurrency> call = financeApi.load();
 
-        call.enqueue(new Callback<PublicCurrency>(){
+        call.enqueue(new Callback<PublicCurrency>() {
             @Override
             public void onResponse(Response<PublicCurrency> response) {
-                Log.d(TAG, "onResponse: " + response.body().getOrganizations().get(2).getTitle().toString());
-                Log.d(TAG, "onResponse: " + response.body().getOrganizations().get(2).getAddress().toString());
+                Log.d(TAG, "onResponse: " + response.body().getOrganizations().get(0).getTitle().toString());
+                Log.d(TAG, "onResponse: " + response.body().getOrganizations().get(0).getAddress().toString());
 
                 writeDB(response.body());
                 //Log.d(TAG, "getAll: " + getAll().get(2).getTitle().toString());
@@ -63,14 +63,15 @@ public class UpdateService extends Service {
     }
 
     private void writeDB(PublicCurrency body) {
-     //   for(PublicOrganization pOrganization :body.getOrganizations()){
-        PublicOrganization pOrganization =body.getOrganizations().get(5);
-            Organization o = new Organization();
-            o.setAddress(pOrganization.getAddress());
-            o.setPhone(pOrganization.getPhone());
-            o.setIdString(pOrganization.getId());
-            o.setTitle(pOrganization.getTitle());
-            o.setLink(pOrganization.getLink());
+        //   for(PublicOrganization pOrganization :body.getOrganizations()){
+        PublicOrganization pOrganization = body.getOrganizations().get(0);
+        Organization o = new Organization();
+        o.setAddress(pOrganization.getAddress());
+        o.setPhone(pOrganization.getPhone());
+        o.setIdString(pOrganization.getId());
+        o.setTitle(pOrganization.getTitle());
+        o.setLink(pOrganization.getLink());
+       // o.setId(1);
 
 //            City city = new City();
 //            city.setId(pOrganization.getCityId());
@@ -83,13 +84,13 @@ public class UpdateService extends Service {
 //            OrganizationType organizationType = new OrganizationType();
 //            organizationType.setId(pOrganization.getOrgType());
 
-            o.save();
-           Log.d(TAG, "writeDB: " +  o.getTitle().toString());
+        o.save();
+        Log.d(TAG, "writeDB: " + o.getTitle().toString());
 
-  //      }
+        //      }
     }
 
-    public static List<Organization> getAll(){
+    public static List<Organization> getAll() {
         return new Select().from(Organization.class)
                 .executeSingle();
     }

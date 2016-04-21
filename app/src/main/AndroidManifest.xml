@@ -20,7 +20,7 @@
             android:value="currency_cash.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="6" />
+            android:value="8" />
 
 
         <activity android:name=".MainActivity">

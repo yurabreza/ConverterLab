@@ -16,15 +16,15 @@ public class Organization extends Model {
     @Expose
     @Column(name = "Title")
     private String title;
-    @Expose
-    @Column(name = "Region")
-    private Region region;
-    @Expose
-    @Column(name = "OrganizationType")
-    private OrganizationType organizationType;
-    @Expose
-    @Column(name = "City")
-    private City city;
+    //    @Expose
+//    @Column(name = "Region")
+//    private Region region;
+//    @Expose
+//    @Column(name = "OrganizationType")
+//    private OrganizationType organizationType;
+//    @Expose
+//    @Column(name = "City")
+//    private City city;
     @Expose
     @Column(name = "Phone")
     private String phone;
@@ -34,6 +34,8 @@ public class Organization extends Model {
     @Expose
     @Column(name = "Link")
     private String link;
+//    @Column(name = "Id")
+//    private int id;
 
     public Organization() {
         super();
@@ -59,22 +61,22 @@ public class Organization extends Model {
 
     }
 
-    public Region getRegion() {
-        return this.region;
-    }
-
-    public void setRegion(Region _region) {
-        this.region = _region;
-    }
-
-    public City getCity() {
-        return this.city;
-    }
-
-    public void setCity(City _city) {
-        this.city = _city;
-    }
-
+//    public Region getRegion() {
+//        return this.region;
+//    }
+//
+//    public void setRegion(Region _region) {
+//        this.region = _region;
+//    }
+//
+//    public City getCity() {
+//        return this.city;
+//    }
+//
+//    public void setCity(City _city) {
+//        this.city = _city;
+//    }
+//
     public String getPhone() {
         return this.phone;
     }
@@ -91,20 +93,21 @@ public class Organization extends Model {
         this.address = _address;
     }
 
+
+//    public OrganizationType getOrganizationType() {
+//        return this.organizationType;
+//    }
+//
+//    public void setOrganizationType(OrganizationType organizationType) {
+//        this.organizationType = organizationType;
+//    }
+
     public String getLink() {
         return this.link;
     }
 
     public void setLink(String _link) {
         this.link = _link;
-    }
-
-    public OrganizationType getOrganizationType() {
-        return this.organizationType;
-    }
-
-    public void setOrganizationType(OrganizationType organizationType) {
-        this.organizationType = organizationType;
     }
 
     public List<OrganizationCurrency> getCurrencies() {
@@ -116,4 +119,7 @@ public class Organization extends Model {
     }
 
 
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 }
