@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ConverterLab</string>
+    <string name="pre_phone">Тел.: </string>
+    <string name="pre_address">Адрес :</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.yurab.converterlab.Api;
+package com.example.yurab.converterlab.api;
 
 import com.example.yurab.converterlab.model.PublicCurrency;
 

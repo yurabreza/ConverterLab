@@ -34,8 +34,7 @@ public class Organization extends Model {
     @Expose
     @Column(name = "Link")
     private String link;
-//    @Column(name = "Id")
-//    private int id;
+
 
     public Organization() {
         super();

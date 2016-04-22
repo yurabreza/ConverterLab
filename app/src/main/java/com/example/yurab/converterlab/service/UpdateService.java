@@ -6,15 +6,13 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.activeandroid.query.Select;
-import com.example.yurab.converterlab.Api.FinanceApi;
+import com.example.yurab.converterlab.api.FinanceApi;
 import com.example.yurab.converterlab.model.CurrencyOrg;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.model.PublicCurrency;
 import com.example.yurab.converterlab.model.PublicOrganization;
 
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -52,7 +50,7 @@ public class UpdateService extends Service {
                 Log.d(TAG, "onResponse: " + response.body().getOrganizations().get(0).getAddress().toString());
 
                 writeDB(response.body());
-                //Log.d(TAG, "getAll: " + getAll().get(2).getTitle().toString());
+
 
             }
 
@@ -100,10 +98,7 @@ public class UpdateService extends Service {
         }
     }
 
-    public static List<Organization> getAll() {
-        return new Select().from(Organization.class)
-                .executeSingle();
-    }
+
 
 
     @Nullable

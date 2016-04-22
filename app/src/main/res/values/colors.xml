@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorMainBackground">#EEEEEE</color>
+    <color name="colorCardBackground">#FAFAFA</color>
+    <color name="colorToolbar">#536D7A</color>
+    <color name="colorTextMain">#CF4171</color>
+    <color name="colorDownCurr">#8B114e</color>
+    <color name="colorUpCurr">#0A5B5C</color>
+    <color name="colorPrimaryText">#46555a</color>
+    <color name="colorFloatingMenuPrimary">#C41163</color>
+    <color name="colorFloatingMenuSecondary">#CFD8DD</color>
+    <color name="colorTabLayout">#CFD8DD</color>
 </resources>
