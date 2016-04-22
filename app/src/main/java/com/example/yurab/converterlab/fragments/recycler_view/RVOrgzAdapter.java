@@ -2,6 +2,7 @@ package com.example.yurab.converterlab.fragments.recycler_view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.util.List;
  * Date  22.04.2016.
  */
 public class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> {
+    private final static String TAG =RVOrgzAdapter.class.getSimpleName();
     private LayoutInflater inflater;
     private List<Organization> organizations;
     private Context context;
@@ -24,6 +26,7 @@ public class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> {
         inflater = LayoutInflater.from(_context);
         this.organizations = _organizations;
         this.context = _context;
+        Log.d(TAG, "RVOrgzAdapter: "+ this.organizations.get(6).getTitle().toString());
     }
 
     @Override
@@ -39,8 +42,11 @@ public class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> {
         holder.tvCity.setText(organizations.get(position).getCity());
         holder.tvPhone.setText(organizations.get(position).getPhone());
         holder.tvAddress.setText(organizations.get(position).getAddress());
+        Log.d(TAG, "onBindViewHolder: "+organizations.get(position).getTitle().toString());
 
     }
+
+
 
     @Override
     public int getItemCount() {

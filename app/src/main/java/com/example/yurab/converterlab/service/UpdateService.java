@@ -51,6 +51,8 @@ public class UpdateService extends Service {
 
                 writeDB(response.body());
 
+                Log.d(TAG, "DB updated: ");
+
 
             }
 
@@ -83,15 +85,15 @@ public class UpdateService extends Service {
                 HashMap<String,String> hashMap = hMap.get(s);
                 CurrencyOrg cOrg = new CurrencyOrg();
                 cOrg.setAsk(hashMap.get("ask"));
-                Log.d(TAG, "setAsk: " +cOrg.getAsk());
+//                Log.d(TAG, "setAsk: " +cOrg.getAsk());
                 cOrg.setBid(hashMap.get("bid"));
-                Log.d(TAG, "setBid: " +cOrg.getAsk());
+//                Log.d(TAG, "setBid: " +cOrg.getAsk());
                 cOrg.setOrganizationId(pOrganization.getId());
                 Log.d(TAG, "setOrganizationId: " +cOrg.getOrganizationId().toString());
                 cOrg.setCurrencyId(s);
-                Log.d(TAG, "setCurrencyId: " +cOrg.getCurrencyId().toString());
+//                Log.d(TAG, "setCurrencyId: " +cOrg.getCurrencyId().toString());
                 cOrg.setCurrencyName(body.getCurrencies().get(s));
-                Log.d(TAG, "setCurrencyName: " + cOrg.getCurrencyName().toString());
+//                Log.d(TAG, "setCurrencyName: " + cOrg.getCurrencyName().toString());
                 cOrg.save();
             }
 
