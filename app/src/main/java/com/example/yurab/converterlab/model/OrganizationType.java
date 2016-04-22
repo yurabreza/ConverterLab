@@ -3,12 +3,11 @@ package com.example.yurab.converterlab.model;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 
-@Table(name = "OrganizationTypes",id ="_id")
+//@Table(name = "OrganizationTypes",id ="_id")
 public class OrganizationType extends Model {
 
- @Column(name = "id")
+ //@Column(name = "id")
     private long id;
 
     @Column(name = "Name")

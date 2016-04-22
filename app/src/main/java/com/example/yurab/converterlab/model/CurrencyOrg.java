@@ -6,14 +6,15 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 
-@Table(name = "OrganizationCurrencies",id ="_id")
-public class OrganizationCurrency  extends Model {
-   @Column(name = "id")
-    private long id;
-    @Column(name = "Organization")
-    private Organization organization;
-    @Column(name = "Currency")
-    private Currency currency;
+@Table(name = "OrganizationCurrencies")
+public class CurrencyOrg extends Model {
+    @Column(name = "CurrencyId")
+    private String currencyId;
+    @Column(name = "CurrencyName")
+    private String currencyName;
+    @Column(name = "OrganizationId")
+    private String organizationId;
+
     @Column(name = "Ask")
     private String ask;
     @Column(name = "Bid")
@@ -23,30 +24,19 @@ public class OrganizationCurrency  extends Model {
     @Column(name = "OldBid")
     private String oldBid;
 
-    public OrganizationCurrency(){
+    public CurrencyOrg() {
         super();
     }
 
 
-    public void setId(long _id) {
-        this.id = _id;
+    public String getOrganizationId() {
+        return this.organizationId;
     }
 
-    public Organization getOrganization() {
-        return this.organization;
+    public void setOrganizationId(String _organization) {
+        this.organizationId = _organization;
     }
 
-    public void setOrganization(Organization _organization) {
-        this.organization = _organization;
-    }
-
-    public Currency getCurrency() {
-        return this.currency;
-    }
-
-    public void setCurrency(Currency _currency) {
-        this.currency = _currency;
-    }
 
     public void setAsk(String _ask) {
         this.ask = _ask;
@@ -78,5 +68,22 @@ public class OrganizationCurrency  extends Model {
 
     public String getOldBid() {
         return oldBid;
+    }
+
+
+    public String getCurrencyName() {
+        return currencyName;
+    }
+
+    public void setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
+    }
+
+    public String getCurrencyId() {
+        return currencyId;
+    }
+
+    public void setCurrencyId(String currencyId) {
+        this.currencyId = currencyId;
     }
 }

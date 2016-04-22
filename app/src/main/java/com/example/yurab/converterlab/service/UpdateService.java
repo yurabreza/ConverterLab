@@ -8,10 +8,12 @@ import android.util.Log;
 
 import com.activeandroid.query.Select;
 import com.example.yurab.converterlab.Api.FinanceApi;
+import com.example.yurab.converterlab.model.CurrencyOrg;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.model.PublicCurrency;
 import com.example.yurab.converterlab.model.PublicOrganization;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit.Call;
@@ -63,31 +65,39 @@ public class UpdateService extends Service {
     }
 
     private void writeDB(PublicCurrency body) {
-        //   for(PublicOrganization pOrganization :body.getOrganizations()){
-        PublicOrganization pOrganization = body.getOrganizations().get(0);
-        Organization o = new Organization();
-        o.setAddress(pOrganization.getAddress());
-        o.setPhone(pOrganization.getPhone());
-        o.setIdString(pOrganization.getId());
-        o.setTitle(pOrganization.getTitle());
-        o.setLink(pOrganization.getLink());
-       // o.setId(1);
+        for (PublicOrganization pOrganization : body.getOrganizations()) {
+            // PublicOrganization pOrganization = body.getOrganizations().get(0);
+            Organization o = new Organization();
+            o.setAddress(pOrganization.getAddress());
+            o.setPhone(pOrganization.getPhone());
+            o.setIdString(pOrganization.getId());
+            o.setTitle(pOrganization.getTitle());
+            o.setLink(pOrganization.getLink());
 
-//            City city = new City();
-//            city.setId(pOrganization.getCityId());
-//            o.setCity(city);
-//
-//            Region region = new Region();
-//            region.setId(pOrganization.getRegionId());
-//
-//
-//            OrganizationType organizationType = new OrganizationType();
-//            organizationType.setId(pOrganization.getOrgType());
 
-        o.save();
-        Log.d(TAG, "writeDB: " + o.getTitle().toString());
+            o.setCity(body.getCities().get(pOrganization.getCityId()));
+            o.setOrganizationType(body.getOrgTypes().get(pOrganization.getOrgType()));
+            o.setRegion(body.getRegions().get(pOrganization.getRegionId()));
+            o.save();
+            Log.d(TAG, "writeDB: " + o.getTitle().toString());
+            HashMap<String,HashMap<String,String>> hMap = pOrganization.getCurrencies();
+            for(String s :hMap.keySet()){
+                HashMap<String,String> hashMap = hMap.get(s);
+                CurrencyOrg cOrg = new CurrencyOrg();
+                cOrg.setAsk(hashMap.get("ask"));
+                Log.d(TAG, "setAsk: " +cOrg.getAsk());
+                cOrg.setBid(hashMap.get("bid"));
+                Log.d(TAG, "setBid: " +cOrg.getAsk());
+                cOrg.setOrganizationId(pOrganization.getId());
+                Log.d(TAG, "setOrganizationId: " +cOrg.getOrganizationId().toString());
+                cOrg.setCurrencyId(s);
+                Log.d(TAG, "setCurrencyId: " +cOrg.getCurrencyId().toString());
+                cOrg.setCurrencyName(body.getCurrencies().get(s));
+                Log.d(TAG, "setCurrencyName: " + cOrg.getCurrencyName().toString());
+                cOrg.save();
+            }
 
-        //      }
+        }
     }
 
     public static List<Organization> getAll() {

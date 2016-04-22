@@ -16,15 +16,15 @@ public class Organization extends Model {
     @Expose
     @Column(name = "Title")
     private String title;
-    //    @Expose
-//    @Column(name = "Region")
-//    private Region region;
-//    @Expose
-//    @Column(name = "OrganizationType")
-//    private OrganizationType organizationType;
-//    @Expose
-//    @Column(name = "City")
-//    private City city;
+    @Expose
+    @Column(name = "Region")
+    private String region;
+    @Expose
+    @Column(name = "OrganizationType")
+    private String organizationType;
+    @Expose
+    @Column(name = "City")
+    private String city;
     @Expose
     @Column(name = "Phone")
     private String phone;
@@ -41,7 +41,7 @@ public class Organization extends Model {
         super();
     }
 
-    private List<OrganizationCurrency> mCurrencies;
+    private List<CurrencyOrg> mCurrencies;
 
 
     public void setIdString(String id) {
@@ -61,22 +61,8 @@ public class Organization extends Model {
 
     }
 
-//    public Region getRegion() {
-//        return this.region;
-//    }
-//
-//    public void setRegion(Region _region) {
-//        this.region = _region;
-//    }
-//
-//    public City getCity() {
-//        return this.city;
-//    }
-//
-//    public void setCity(City _city) {
-//        this.city = _city;
-//    }
-//
+
+
     public String getPhone() {
         return this.phone;
     }
@@ -94,13 +80,6 @@ public class Organization extends Model {
     }
 
 
-//    public OrganizationType getOrganizationType() {
-//        return this.organizationType;
-//    }
-//
-//    public void setOrganizationType(OrganizationType organizationType) {
-//        this.organizationType = organizationType;
-//    }
 
     public String getLink() {
         return this.link;
@@ -110,12 +89,36 @@ public class Organization extends Model {
         this.link = _link;
     }
 
-    public List<OrganizationCurrency> getCurrencies() {
+    public List<CurrencyOrg> getCurrencies() {
         return this.mCurrencies;
     }
 
-    public void setCurrencies(List<OrganizationCurrency> _currencies) {
+    public void setCurrencies(List<CurrencyOrg> _currencies) {
         this.mCurrencies = _currencies;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getOrganizationType() {
+        return organizationType;
+    }
+
+    public void setOrganizationType(String organizationType) {
+        this.organizationType = organizationType;
     }
 
 

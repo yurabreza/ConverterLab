@@ -1,14 +1,12 @@
 package com.example.yurab.converterlab.model;
 
 import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 
-@Table(name = "Currencies",id ="_id")
+//@Table(name = "Currencies",id ="_id")
 public class Currency  extends Model {
- @Column(name = "id")
+ //@Column(name = "id")
     private long id;
-    @Column(name = "Name")
+   // @Column(name = "Name")
     private String name;
 
 

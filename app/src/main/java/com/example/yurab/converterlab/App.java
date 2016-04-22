@@ -14,7 +14,7 @@ public class App  extends Application{
         super.onCreate();
 //        com.activeandroid.Configuration.Builder config = new com.activeandroid.Configuration.Builder(this);
 //        config.addModelClasses(City.class,
-//                Currency.class, Organization.class, OrganizationCurrency.class,
+//                Currency.class, Organization.class, CurrencyOrg.class,
 //                OrganizationType.class, Region.class);
         ActiveAndroid.initialize(this);
     }

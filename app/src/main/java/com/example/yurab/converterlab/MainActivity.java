@@ -3,10 +3,12 @@ package com.example.yurab.converterlab;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
+import com.example.yurab.converterlab.model.CurrencyOrg;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.service.UpdateService;
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      // startService(new Intent(this, UpdateService.class));
+        // startService(new Intent(this, UpdateService.class));
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
 
@@ -36,8 +38,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startService(new Intent(this, UpdateService.class));
                 break;
             case (R.id.btn2):
+                //Toast.makeText(this, getOrgz().get(i).getTitle().toString(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, getOrgz().get(i).getTitle().toString(), Toast.LENGTH_SHORT).show();
-               // i++;
+                List<CurrencyOrg> list = getCurrz();
+                for (CurrencyOrg cOrg : list)
+                    Log.d(TAG, "onClick: getCurz"+cOrg.getCurrencyId().toString());
+                // i++;
                 break;
         }
     }
@@ -45,6 +51,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public List<Organization> getOrgz() {
         List<Organization> list = new Select()
                 .from(Organization.class)
+                .orderBy("RANDOM()")
+                .execute();
+        return list;
+
+    }
+
+    public List<CurrencyOrg> getCurrz() {
+        List<CurrencyOrg> list = new Select()
+                .from(CurrencyOrg.class)
                 .orderBy("RANDOM()")
                 .execute();
         return list;

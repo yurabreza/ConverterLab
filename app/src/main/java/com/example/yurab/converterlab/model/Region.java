@@ -1,17 +1,15 @@
 package com.example.yurab.converterlab.model;
 
 import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 
-@Table(name = "Regions",id ="_id")
+//@Table(name = "Regions",id ="_id")
 public class Region  extends Model {
 
 
   // @Column(name = "Id")
     private long id;
 
-    @Column(name = "Name")
+    //@Column(name = "Name")
     private String name;
 
     public Region(){
