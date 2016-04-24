@@ -7,7 +7,7 @@ import com.activeandroid.annotation.Table;
 
 
 @Table(name = "OrganizationCurrencies")
-public class CurrencyOrg extends Model {
+public final class CurrencyOrg extends Model {
     @Column(name = "CurrencyId")
     private String currencyId;
     @Column(name = "CurrencyName")

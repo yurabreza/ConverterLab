@@ -9,7 +9,7 @@ import com.google.gson.annotations.Expose;
 import java.util.List;
 
 @Table(name = "Organizations")
-public class Organization extends Model {
+public final class Organization extends Model {
     @Expose
     @Column(name = "idString")
     private String idString;

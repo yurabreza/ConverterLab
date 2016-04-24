@@ -7,8 +7,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.example.yurab.converterlab.Constants;
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.api.FinanceApi;
 import com.example.yurab.converterlab.database.DBHelper;
@@ -28,7 +30,7 @@ import retrofit.Retrofit;
  * Created by Yura Breza
  * Date  20.04.2016.
  */
-public class UpdateService extends Service {
+public final class UpdateService extends Service {
 
 
     private static final String RESOURCE_FINANCE_UA = "http://resources.finance.ua/ru/public/";
@@ -76,6 +78,7 @@ public class UpdateService extends Service {
                     @Override
                     public boolean handleMessage(Message msg) {
                         stop();
+                        sendMessage();
                         return false;
                     }
                 });
@@ -91,6 +94,14 @@ public class UpdateService extends Service {
         });
 
 
+    }
+
+    private void sendMessage() {
+        Log.d("sender", "Broadcasting message");
+        Intent intent = new Intent(Constants.BROADCAST_UPDATE_END);
+
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     private void stop() {

@@ -7,7 +7,7 @@ import com.google.gson.annotations.Expose;
 import java.util.HashMap;
 
 
-public class PublicOrganization {
+public final class PublicOrganization {
 
     @Expose
     private String id;

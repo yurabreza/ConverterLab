@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class PublicCurrency {
+public final class PublicCurrency {
 
     @Expose
     private String sourceId;

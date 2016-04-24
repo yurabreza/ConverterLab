@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.activeandroid.query.Select;
+import com.example.yurab.converterlab.Constants;
 import com.example.yurab.converterlab.model.CurrencyOrg;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.model.PublicCurrency;
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by Yura Breza
  * Date  24.04.2016.
  */
-public class DBHelper {
+public final class DBHelper {
     private List<Organization> organizationList;
     private boolean isIn;
     private final String st = "------------";
@@ -73,9 +74,9 @@ public class DBHelper {
 
                     currencyOrg.setOldAsk(currencyOrg.getAsk());
                     currencyOrg.setOldBid(currencyOrg.getBid());
-                    currencyOrg.setAsk(hashMap.get("ask"));
+                    currencyOrg.setAsk(hashMap.get(Constants.ASK));
 
-                    currencyOrg.setBid(hashMap.get("bid"));
+                    currencyOrg.setBid(hashMap.get(Constants.BID));
                     currencyOrg.save();
                     Log.d(TAG, "update currenncy: " + st + currencyOrg.getStringData());
                 }
@@ -94,8 +95,8 @@ public class DBHelper {
         for (String s : hMap.keySet()) {
             HashMap<String, String> hashMap = hMap.get(s);
             CurrencyOrg cOrg = new CurrencyOrg();
-            cOrg.setAsk(hashMap.get("ask"));
-            cOrg.setBid(hashMap.get("bid"));
+            cOrg.setAsk(hashMap.get(Constants.ASK));
+            cOrg.setBid(hashMap.get(Constants.BID));
             cOrg.setOrganizationId(pOrganization.getId());
             cOrg.setCurrencyId(s);
             cOrg.setCurrencyName(body.getCurrencies().get(s));
@@ -120,7 +121,7 @@ public class DBHelper {
     public List<CurrencyOrg> getCurrencyOrgList(String id) {
         return new Select()
                 .from(CurrencyOrg.class)
-                .where("OrganizationId = ?", id)
+                .where(Constants.KEY_ORG_ID, id)
                 .execute();
     }
 
