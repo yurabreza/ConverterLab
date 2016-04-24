@@ -24,11 +24,16 @@ public class CurrencyOrg extends Model {
     @Column(name = "OldBid")
     private String oldBid;
 
+
+
     public CurrencyOrg() {
         super();
     }
 
-
+    public String getStringData(){
+        String s = "---";
+        return s+getCurrencyId()+" ask "+getAsk()+" oldAsk "+getOldAsk();
+    }
     public String getOrganizationId() {
         return this.organizationId;
     }

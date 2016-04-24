@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.yurab.converterlab.MainActivity;
 import com.example.yurab.converterlab.R;
+import com.example.yurab.converterlab.database.DBHelper;
 import com.example.yurab.converterlab.fragments.recycler_view.RVOrgzAdapter;
 import com.example.yurab.converterlab.model.Organization;
 
@@ -30,7 +30,7 @@ public class OrgzListFragment extends Fragment implements SwipeRefreshLayout.OnR
     private List<Organization> organizations;
     private ViewGroup container;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private MainActivity mainActivity;
+    private DBHelper dbHelper;
 
 
     @Nullable
@@ -45,8 +45,9 @@ public class OrgzListFragment extends Fragment implements SwipeRefreshLayout.OnR
         super.onActivityCreated(savedInstanceState);
 
         RecyclerView recyclerView = (RecyclerView) container.findViewById(R.id.recycler_view_OLF);
-        mainActivity = (MainActivity) getContext();
-        organizations = mainActivity.getOrgz();
+        dbHelper = new DBHelper();
+        organizations = dbHelper.getOrgzList();
+
 //        Log.d(TAG, "update: "+organizations.get(4).getTitle().toString());
         RVOrgzAdapter rvOrgzAdapter = new RVOrgzAdapter(getContext(),organizations);
         recyclerView.setAdapter(rvOrgzAdapter);
