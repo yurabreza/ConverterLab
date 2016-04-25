@@ -2,7 +2,9 @@ package com.example.yurab.converterlab.service;
 
 import android.app.Notification;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -14,11 +16,12 @@ import com.example.yurab.converterlab.Constants;
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.api.FinanceApi;
 import com.example.yurab.converterlab.database.DBHelper;
-import com.example.yurab.converterlab.model.CurrencyOrg;
-import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.model.PublicCurrency;
 
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -38,8 +41,6 @@ public final class UpdateService extends Service {
     private Retrofit retrofit;
     private FinanceApi financeApi;
     private Call<PublicCurrency> call;
-    public List<CurrencyOrg> currencyOrgList;
-    public List<Organization> organizationList;
 
 
     @Override
@@ -66,15 +67,19 @@ public final class UpdateService extends Service {
 
     public void updateDb() {
 
+        final DBHelper dbHelper = new DBHelper();
+
         showNotification();
         call.enqueue(new Callback<PublicCurrency>() {
             @Override
             public void onResponse(Response<PublicCurrency> response) {
-                Log.d(TAG, "onResponse: " + response.body().getOrganizations().get(0).getTitle().toString());
-                Log.d(TAG, "onResponse: " + response.body().getOrganizations().get(0).getAddress().toString());
-                DBHelper dbHelper = new DBHelper();
+                //boolean variable upd is true when actual date is newer and there is need to update
+                boolean upd = loadedDateNewer(response.body().getDate());
+                //saving new date
+                saveDate(response.body().getDate());
 
-                dbHelper.writeDB(response.body(), new Handler.Callback() {
+
+                dbHelper.writeDB(response.body(), upd, new Handler.Callback() {
                     @Override
                     public boolean handleMessage(Message msg) {
                         stop();
@@ -82,7 +87,6 @@ public final class UpdateService extends Service {
                         return false;
                     }
                 });
-
 
             }
 
@@ -94,6 +98,38 @@ public final class UpdateService extends Service {
         });
 
 
+    }
+
+    private void saveDate(String date) {
+        SharedPreferences sPref = getSharedPreferences(Constants.CONVERT_LAB_S_PREFS, this.MODE_PRIVATE);
+
+        sPref.edit().putString(Constants.SAVE_DATE_KEY, date).apply();
+
+
+    }
+
+
+    private boolean loadedDateNewer(String newDate) {
+        SharedPreferences sPref = this.getSharedPreferences(Constants.CONVERT_LAB_S_PREFS, Context.MODE_PRIVATE);
+        String s = sPref.getString(Constants.SAVE_DATE_KEY, null);
+        if (s==null) return false;
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            Date dateNew = df.parse(newDate);
+
+            Log.d(TAG, "loadedDateNewer: " + dateNew);
+            Date dateOld = df.parse(s);
+            Log.d(TAG, "loadedDateNewer: " + dateOld);
+            if (dateNew.after(dateOld)) {
+                Log.d(TAG, "loadedDateNewer: -----------date.after(res)");
+                return true;
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "loadedDateNewer: ----------- not (date.after(res))");
+        return false;
     }
 
     private void sendMessage() {
@@ -124,9 +160,19 @@ public final class UpdateService extends Service {
     private Notification buildNotif() {
         int sdk = android.os.Build.VERSION.SDK_INT;
         if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            return new Notification.Builder(this).getNotification();
+            return new Notification.Builder(this)
+                    .setSmallIcon(R.drawable.ic_red_arrow_down)
+                    .setContentTitle("Converter Lab")
+                    .setContentText("Обновление базы данных")
+                    .setAutoCancel(false)
+                    .setOngoing(true).getNotification();
         } else {
-            return new Notification.Builder(this).build();
+            return new Notification.Builder(this)
+                    .setSmallIcon(R.drawable.ic_red_arrow_down)
+                    .setContentTitle("Converter Lab")
+                    .setContentText("Обновление базы данных")
+                    .setAutoCancel(false)
+                    .setOngoing(true).build();
         }
 
     }

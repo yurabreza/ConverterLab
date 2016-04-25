@@ -9,4 +9,6 @@ public final class Constants {
     public static final String ASK = "ask";
     public static final String BID = "bid";
     public static final String KEY_ORG_ID = "OrganizationId = ?";
+    public static final String CONVERT_LAB_S_PREFS = "ConvertPreferences";
+    public static final String SAVE_DATE_KEY = "SaveDate";
 }

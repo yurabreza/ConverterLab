@@ -23,7 +23,7 @@ public final class DBHelper {
     private final String st = "------------";
     private final String TAG = "DBHelper";
 
-    public void writeDB(PublicCurrency body, Handler.Callback callback) {
+    public void writeDB(PublicCurrency body, boolean upd, Handler.Callback callback) {
         organizationList = getOrgzList();
         showStatus();
 
@@ -36,7 +36,9 @@ public final class DBHelper {
                     if (pOrganization.getId().equals(organization.getIdString())) {
                         //equal Bank found in DataBase updating only currency table
                         isIn = true;
-                        updateCurOrgzList(pOrganization);
+                        //if date not changed not updating old ask
+                        if (upd)
+                            updateCurOrgzList(pOrganization, upd);
                     }
             }
 
@@ -58,7 +60,7 @@ public final class DBHelper {
         Log.d(TAG, st + st + "showStatus: " + st + getOrgzList().size());
     }
 
-    private void updateCurOrgzList(PublicOrganization pOrganization) {
+    private void updateCurOrgzList(PublicOrganization pOrganization, boolean upd) {
         List<CurrencyOrg> currencyOrgList;
         //getting all currencies of current Organization
         HashMap<String, HashMap<String, String>> hMap = pOrganization.getCurrencies();
@@ -74,11 +76,13 @@ public final class DBHelper {
 
                     currencyOrg.setOldAsk(currencyOrg.getAsk());
                     currencyOrg.setOldBid(currencyOrg.getBid());
+
                     currencyOrg.setAsk(hashMap.get(Constants.ASK));
 
                     currencyOrg.setBid(hashMap.get(Constants.BID));
                     currencyOrg.save();
                     Log.d(TAG, "update currenncy: " + st + currencyOrg.getStringData());
+
                 }
 
             }
@@ -87,6 +91,7 @@ public final class DBHelper {
         }
 
     }
+
 
     private void saveNewCurrencyOrg(PublicOrganization pOrganization, PublicCurrency body) {
 

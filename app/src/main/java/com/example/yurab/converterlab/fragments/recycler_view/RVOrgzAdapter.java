@@ -1,19 +1,16 @@
 package com.example.yurab.converterlab.fragments.recycler_view;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.model.Organization;
+import com.example.yurab.converterlab.utils.MenuActions;
 
 import java.util.List;
 
@@ -28,12 +25,14 @@ public final class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> impl
     private Context context;
     private String prePhone;
     private String preAddress;
+    private MenuActions menuActions;
 
 
     public RVOrgzAdapter(Context _context, List<Organization> _organizations) {
         inflater = LayoutInflater.from(_context);
         this.organizations = _organizations;
         this.context = _context;
+        menuActions = new MenuActions();
 
         prePhone = context.getResources().getString(R.string.pre_phone);
         preAddress = context.getResources().getString(R.string.pre_address);
@@ -77,18 +76,18 @@ public final class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> impl
         switch (tab.getPosition()) {
             case (0):
 
-                openUrl(organizations.get((int) tab.getTag()).getLink());
+                menuActions.openUrl(context,organizations.get((int) tab.getTag()).getLink());
                 break;
             case (1):
 
-                openMap(organizations.get((int) tab.getTag()));
+                menuActions.openMap(context,organizations.get((int) tab.getTag()));
                 break;
             case (2):
 
-                makeCall(organizations.get((int) tab.getTag()).getPhone());
+                menuActions.makeCall(context,organizations.get((int) tab.getTag()).getPhone());
                 break;
             case (3):
-                commitDetailFragment(organizations.get((int) tab.getTag()));
+                menuActions.commitDetailFragment(context,organizations.get((int) tab.getTag()));
 
                 break;
         }
@@ -106,49 +105,21 @@ public final class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> impl
         switch (tab.getPosition()) {
             case (0):
 
-                openUrl(organizations.get((int) tab.getTag()).getLink());
+                menuActions.openUrl(context,organizations.get((int) tab.getTag()).getLink());
                 break;
             case (1):
-                openMap(organizations.get((int) tab.getTag()));
+                menuActions.openMap(context,organizations.get((int) tab.getTag()));
                 break;
             case (2):
 
-                makeCall(organizations.get((int) tab.getTag()).getPhone());
+                menuActions.makeCall(context,organizations.get((int) tab.getTag()).getPhone());
                 break;
             case (3):
-                commitDetailFragment(organizations.get((int) tab.getTag()));
+                menuActions.commitDetailFragment(context,organizations.get((int) tab.getTag()));
                 break;
         }
 
     }
 
-    private void commitDetailFragment(Organization organization) {
 
-    }
-
-    private void openMap(Organization organization) {
-
-    }
-
-    private void openUrl(String url) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-
-        try {
-            context.startActivity(browserIntent);
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(context, "Web browser Activity not found", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void makeCall(String phone) {
-        Intent phoneIntent = new Intent(Intent.ACTION_CALL);
-        phoneIntent.setData(Uri.parse(PhoneNumberUtils.formatNumber(phone, "UA")));
-        try {
-            context.startActivity(phoneIntent);
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(context, "ACTION_CALL Activity not found"
-                    + Uri.parse(PhoneNumberUtils.formatNumber(phone, "UA")).toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
 }

@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.yurab.converterlab.Constants;
 import com.example.yurab.converterlab.R;
@@ -61,28 +64,44 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
         swipeRefreshLayout = (SwipeRefreshLayout) container.findViewById(R.id.refresh);
         swipeRefreshLayout.setOnRefreshListener(this);
         organizations = dbHelper.getOrgzList();
+        if (isNetworkAvaAvailable()) {
+            if (organizations.size() == 0) {
+                onRefresh();
+                isFirstTime = true;
 
-        if (organizations.size() == 0) {
-            onRefresh();
-            isFirstTime = true;
+            } else {
 
+                createAdapter();
+                update();
+            }
         } else {
-
-            createAdapter();
-            update();
+            if (!(organizations.size() == 0)) {
+                createAdapter();
+            } else
+                Toast.makeText(getContext(), "NO internet and db is empty", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        Log.d(TAG, "onRefresh: ");
+
+        swipeRefreshLayout.setRefreshing(true);
+        update();
+
+
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            if (isFirstTime){
-                isFirstTime =false;
+            if (isFirstTime) {
+                isFirstTime = false;
                 organizations = dbHelper.getOrgzList();
                 createAdapter();
                 swipeRefreshLayout.setRefreshing(false);
-            }else{
+            } else {
                 createAdapter();
                 swipeRefreshLayout.setRefreshing(false);
 
@@ -90,6 +109,13 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
             Log.d("receiver", "Got message: ");
         }
     };
+
+    private boolean isNetworkAvaAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     private void createAdapter() {
 
@@ -105,15 +131,6 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
         getActivity().startService(new Intent(getActivity(), UpdateService.class));
     }
 
-    @Override
-    public void onRefresh() {
-        Log.d(TAG, "onRefresh: ");
-
-        swipeRefreshLayout.setRefreshing(true);
-        update();
-
-
-    }
 
     @Override
     public void onDestroy() {
