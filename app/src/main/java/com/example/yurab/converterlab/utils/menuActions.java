@@ -12,10 +12,7 @@ import com.example.yurab.converterlab.model.Organization;
  * Created by Yura Breza
  * Date  25.04.2016.
  */
-public class MenuActions {
-    public void commitDetailFragment(Context context, Organization organization) {
-
-    }
+public final class MenuActions {
 
     public void openMap(Context context,Organization organization) {
 

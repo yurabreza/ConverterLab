@@ -1,6 +1,7 @@
-package com.example.yurab.converterlab.fragments.recycler_view;
+package com.example.yurab.converterlab.fragments.OrgzList.recycler_view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.yurab.converterlab.MainActivity;
 import com.example.yurab.converterlab.R;
+import com.example.yurab.converterlab.constants.Constants;
+import com.example.yurab.converterlab.fragments.DetailView.DetailFragment;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.utils.MenuActions;
 
@@ -76,18 +80,18 @@ public final class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> impl
         switch (tab.getPosition()) {
             case (0):
 
-                menuActions.openUrl(context,organizations.get((int) tab.getTag()).getLink());
+                menuActions.openUrl(context, organizations.get((int) tab.getTag()).getLink());
                 break;
             case (1):
 
-                menuActions.openMap(context,organizations.get((int) tab.getTag()));
+                menuActions.openMap(context, organizations.get((int) tab.getTag()));
                 break;
             case (2):
 
-                menuActions.makeCall(context,organizations.get((int) tab.getTag()).getPhone());
+                menuActions.makeCall(context, organizations.get((int) tab.getTag()).getPhone());
                 break;
             case (3):
-                menuActions.commitDetailFragment(context,organizations.get((int) tab.getTag()));
+                commitDetailFragment(organizations.get((int) tab.getTag()));
 
                 break;
         }
@@ -105,19 +109,31 @@ public final class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> impl
         switch (tab.getPosition()) {
             case (0):
 
-                menuActions.openUrl(context,organizations.get((int) tab.getTag()).getLink());
+                menuActions.openUrl(context, organizations.get((int) tab.getTag()).getLink());
                 break;
             case (1):
-                menuActions.openMap(context,organizations.get((int) tab.getTag()));
+                menuActions.openMap(context, organizations.get((int) tab.getTag()));
                 break;
             case (2):
 
-                menuActions.makeCall(context,organizations.get((int) tab.getTag()).getPhone());
+                menuActions.makeCall(context, organizations.get((int) tab.getTag()).getPhone());
                 break;
             case (3):
-                menuActions.commitDetailFragment(context,organizations.get((int) tab.getTag()));
+                commitDetailFragment(organizations.get((int) tab.getTag()));
                 break;
         }
+
+    }
+
+    public void commitDetailFragment(Organization organization) {
+        MainActivity m = (MainActivity) context;
+        DetailFragment dF = new DetailFragment();
+        Bundle b = new Bundle();
+        b.putLong(Constants.ID_KEY,organization.getId());
+        dF.setArguments(b);
+        m.commitFragmnet( dF);
+
+
 
     }
 

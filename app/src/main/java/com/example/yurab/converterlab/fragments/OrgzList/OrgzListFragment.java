@@ -1,4 +1,4 @@
-package com.example.yurab.converterlab.fragments;
+package com.example.yurab.converterlab.fragments.OrgzList;
 
 
 import android.content.BroadcastReceiver;
@@ -20,10 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.yurab.converterlab.Constants;
 import com.example.yurab.converterlab.R;
+import com.example.yurab.converterlab.constants.Constants;
 import com.example.yurab.converterlab.database.DBHelper;
-import com.example.yurab.converterlab.fragments.recycler_view.RVOrgzAdapter;
+import com.example.yurab.converterlab.fragments.OrgzList.recycler_view.RVOrgzAdapter;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.service.UpdateService;
 
@@ -64,21 +64,24 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
         swipeRefreshLayout = (SwipeRefreshLayout) container.findViewById(R.id.refresh);
         swipeRefreshLayout.setOnRefreshListener(this);
         organizations = dbHelper.getOrgzList();
-        if (isNetworkAvaAvailable()) {
-            if (organizations.size() == 0) {
-                onRefresh();
-                isFirstTime = true;
 
+        if (savedInstanceState == null){
+            if (isNetworkAvaAvailable()) {
+                if (organizations.size() == 0) {
+                    onRefresh();
+                    isFirstTime = true;
+
+                } else {
+
+                    createAdapter();
+                    update();
+                }
             } else {
-
-                createAdapter();
-                update();
+                if (!(organizations.size() == 0)) {
+                    createAdapter();
+                } else
+                    Toast.makeText(getContext(), "NO internet and db is empty", Toast.LENGTH_LONG).show();
             }
-        } else {
-            if (!(organizations.size() == 0)) {
-                createAdapter();
-            } else
-                Toast.makeText(getContext(), "NO internet and db is empty", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -131,6 +134,11 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
         getActivity().startService(new Intent(getActivity(), UpdateService.class));
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(Constants.UPDATE_KEY, true);
+    }
 
     @Override
     public void onDestroy() {

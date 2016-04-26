@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.activeandroid.query.Select;
-import com.example.yurab.converterlab.Constants;
+import com.example.yurab.converterlab.constants.Constants;
 import com.example.yurab.converterlab.model.CurrencyOrg;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.model.PublicCurrency;
@@ -142,5 +142,12 @@ public final class DBHelper {
                 .execute();
         return list;
 
+    }
+
+    public Organization getOrgById(long id){
+        return new Select()
+                .from(Organization.class)
+                .where(Constants.KEY_ORG_ID_SINGLE,id)
+                .executeSingle();
     }
 }

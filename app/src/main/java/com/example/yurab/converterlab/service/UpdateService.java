@@ -12,9 +12,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.example.yurab.converterlab.Constants;
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.api.FinanceApi;
+import com.example.yurab.converterlab.constants.Constants;
 import com.example.yurab.converterlab.database.DBHelper;
 import com.example.yurab.converterlab.model.PublicCurrency;
 
