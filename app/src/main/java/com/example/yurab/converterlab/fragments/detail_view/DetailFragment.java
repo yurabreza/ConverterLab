@@ -1,4 +1,4 @@
-package com.example.yurab.converterlab.fragments.DetailView;
+package com.example.yurab.converterlab.fragments.detail_view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,7 +16,8 @@ import android.widget.TextView;
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.constants.Constants;
 import com.example.yurab.converterlab.database.DBHelper;
-import com.example.yurab.converterlab.fragments.DetailView.recycler_view.RVDetailAdapter;
+import com.example.yurab.converterlab.fragments.detail_view.recycler_view.RVDetailAdapter;
+import com.example.yurab.converterlab.fragments.share_dialog.ShareDialogFragment;
 import com.example.yurab.converterlab.model.CurrencyOrg;
 import com.example.yurab.converterlab.model.Organization;
 
@@ -23,18 +27,18 @@ import java.util.List;
  * Created by Yura Breza
  * Date  25.04.2016.
  */
-public final class DetailFragment extends Fragment {
+public final class DetailFragment extends Fragment implements MenuItem.OnMenuItemClickListener {
     private TextView tvTitle, tvLink, tvPhone, tvRegion, tvCity, tvAddress, tvOrgType;
     private ViewGroup container;
     private long id;
     private Organization organization;
     private List<CurrencyOrg> dataList;
-    private String link ;
-    private String phone ;
-    private String address ;
-    private String city ;
+    private String link;
+    private String phone;
+    private String address;
+    private String city;
     private String region;
-    private String orgType ;
+    private String orgType;
 
 
     @Nullable
@@ -43,6 +47,7 @@ public final class DetailFragment extends Fragment {
         id = getArguments().getLong(Constants.ID_KEY);
         this.container = container;
         setRetainInstance(true);
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.detail_content, container, false);
     }
 
@@ -53,7 +58,8 @@ public final class DetailFragment extends Fragment {
     }
 
     private void init() {
-        loadres();
+
+        loadRes();
         DBHelper dbHelper = new DBHelper();
         organization = dbHelper.getOrgById(id);
 
@@ -84,7 +90,16 @@ public final class DetailFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    private void loadres() {
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.findItem(R.id.menu_search).setVisible(false);
+        inflater.inflate(R.menu.detail_menu, menu);
+        menu.findItem(R.id.menu_share).setOnMenuItemClickListener(this);
+    }
+
+    private void loadRes() {
         link = getActivity().getResources().getString(R.string.link_rus);
         phone = getActivity().getResources().getString(R.string.pre_phone);
         address = getActivity().getResources().getString(R.string.pre_address);
@@ -94,4 +109,13 @@ public final class DetailFragment extends Fragment {
     }
 
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        ShareDialogFragment shareDialogFragment = new ShareDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong(Constants.ID_KEY,id);
+        shareDialogFragment.setArguments(bundle);
+        shareDialogFragment.show(getActivity().getSupportFragmentManager(),Constants.SHARE_DIALOG);
+        return false;
+    }
 }

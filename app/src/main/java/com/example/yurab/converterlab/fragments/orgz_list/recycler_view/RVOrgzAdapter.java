@@ -1,4 +1,4 @@
-package com.example.yurab.converterlab.fragments.OrgzList.recycler_view;
+package com.example.yurab.converterlab.fragments.orgz_list.recycler_view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.example.yurab.converterlab.MainActivity;
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.constants.Constants;
 import com.example.yurab.converterlab.database.DBHelper;
-import com.example.yurab.converterlab.fragments.DetailView.DetailFragment;
+import com.example.yurab.converterlab.fragments.detail_view.DetailFragment;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.utils.MenuActions;
 

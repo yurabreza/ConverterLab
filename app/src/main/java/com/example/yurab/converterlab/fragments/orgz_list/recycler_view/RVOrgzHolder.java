@@ -1,4 +1,4 @@
-package com.example.yurab.converterlab.fragments.OrgzList.recycler_view;
+package com.example.yurab.converterlab.fragments.orgz_list.recycler_view;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;

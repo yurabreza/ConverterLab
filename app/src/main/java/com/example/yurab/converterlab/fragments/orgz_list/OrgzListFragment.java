@@ -1,4 +1,4 @@
-package com.example.yurab.converterlab.fragments.OrgzList;
+package com.example.yurab.converterlab.fragments.orgz_list;
 
 
 import android.content.BroadcastReceiver;
@@ -25,7 +25,7 @@ import com.example.yurab.converterlab.MainActivity;
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.constants.Constants;
 import com.example.yurab.converterlab.database.DBHelper;
-import com.example.yurab.converterlab.fragments.OrgzList.recycler_view.RVOrgzAdapter;
+import com.example.yurab.converterlab.fragments.orgz_list.recycler_view.RVOrgzAdapter;
 import com.example.yurab.converterlab.model.Organization;
 import com.example.yurab.converterlab.service.UpdateService;
 

@@ -10,4 +10,6 @@
     <string name="pre_org_type">Тип организации : </string>
     <string name="search">Search</string>
     <string name="searc">Search</string>
+    <string name="share">share</string>
+    <string name="share_button">SHARE</string>
 </resources>

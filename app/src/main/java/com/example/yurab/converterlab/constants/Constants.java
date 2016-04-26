@@ -14,4 +14,5 @@ public final class Constants {
     public static final String SAVE_DATE_KEY = "SaveDate";
     public static final String ID_KEY = "id";
     public static final String UPDATE_KEY = "update_key";
+    public static final String SHARE_DIALOG = "share_dialog";
 }

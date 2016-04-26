@@ -7,7 +7,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-import com.example.yurab.converterlab.fragments.OrgzList.OrgzListFragment;
+import com.example.yurab.converterlab.fragments.orgz_list.OrgzListFragment;
 
 public final class MainActivity extends AppCompatActivity {
 

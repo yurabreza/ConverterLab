@@ -1,4 +1,4 @@
-package com.example.yurab.converterlab.fragments.DetailView.recycler_view;
+package com.example.yurab.converterlab.fragments.detail_view.recycler_view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
