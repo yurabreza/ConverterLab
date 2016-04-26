@@ -42,6 +42,7 @@ public final class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         id = getArguments().getLong(Constants.ID_KEY);
         this.container = container;
+        setRetainInstance(true);
         return inflater.inflate(R.layout.detail_content, container, false);
     }
 

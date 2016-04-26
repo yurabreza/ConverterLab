@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.model.CurrencyOrg;
@@ -42,18 +43,19 @@ public final class RVDetailAdapter extends RecyclerView.Adapter<RVDetailHolder> 
         holder.tvTitle.setText(data.get(position).getCurrencyName());
         holder.tvAsk.setText(data.get(position).getAsk());
         holder.tvBid.setText(data.get(position).getBid());
+
+        setArrow(holder.ivBidArrow,position);
+
+        setArrow(holder.ivAskArrow,position);
+    }
+
+    private void setArrow(ImageView ivArrow, int position) {
         if (data.get(position).getOldAsk() != null) {
             if (Float.valueOf(data.get(position).getAsk()) < Float.valueOf(data.get(position).getOldAsk()))
-                holder.ivAskArrow.setImageDrawable(arrowRed);
-            else holder.ivAskArrow.setImageDrawable(arrowGreen);
+                ivArrow.setImageDrawable(arrowRed);
+            else ivArrow.setImageDrawable(arrowGreen);
         } else
-            holder.ivAskArrow.setImageDrawable(arrowGreen);
-        if (data.get(position).getOldBid() != null) {
-            if (Float.valueOf(data.get(position).getBid()) < Float.valueOf(data.get(position).getOldBid()))
-                holder.ivBidArrow.setImageDrawable(arrowRed);
-            else holder.ivBidArrow.setImageDrawable(arrowGreen);
-        } else
-            holder.ivBidArrow.setImageDrawable(arrowGreen);
+            ivArrow.setImageDrawable(arrowGreen);
     }
 
     @Override
