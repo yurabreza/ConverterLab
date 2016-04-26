@@ -12,4 +12,7 @@
     <string name="searc">Search</string>
     <string name="share">share</string>
     <string name="share_button">SHARE</string>
+    <string name="menu_map">Карта</string>
+    <string name="menu_link">Сайт</string>
+    <string name="menu_call">Позвонить</string>
 </resources>

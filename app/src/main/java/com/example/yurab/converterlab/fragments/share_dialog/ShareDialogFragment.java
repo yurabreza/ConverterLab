@@ -1,7 +1,5 @@
 package com.example.yurab.converterlab.fragments.share_dialog;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -9,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.yurab.converterlab.R;
@@ -61,20 +60,17 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
         tvRegion.setText(organization.getRegion());
         tvCity.setText(organization.getCity());
         root.findViewById(R.id.btn_share_SC).setOnClickListener(this);
+
+        CurrencyAdapter currencyAdapter  = new CurrencyAdapter(getContext(),data );
+
+        // настраиваем список
+        ListView lvMain = (ListView) root.findViewById(R.id.list_view_SC);
+        lvMain.setAdapter(currencyAdapter);
     }
 
-    public Bitmap createBitmap(View v) {
-        Bitmap bitmap;
-        bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight() - 60, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        v.draw(canvas);
-        return bitmap;
-    }
 
     @Override
     public void onClick(View v) {
-        Bitmap icon =createBitmap(root);
-
 
     }
 }

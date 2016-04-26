@@ -2,127 +2,177 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorMainBackground"
-        android:orientation="vertical"
-        android:padding="@dimen/card_padding">
+        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorCardBackground"
-            android:padding="@dimen/card_padding"
-            card_view:cardElevation="@dimen/card_view_elevation">
+            android:background="@color/colorMainBackground"
+            android:orientation="vertical"
+            android:padding="@dimen/card_padding">
 
-            <LinearLayout
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorCardBackground"
-                android:orientation="vertical">
+                android:padding="@dimen/card_padding"
+                card_view:cardElevation="@dimen/card_view_elevation">
 
-                <TextView
-                    android:id="@+id/tv_title_DC"
-                    style="@style/CardTextView"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextMain"
-                    android:textSize="@dimen/title_text_size"
-                    android:textStyle="bold"
-                    tools:text="Alpha-bank" />
+                    android:background="@color/colorCardBackground"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_link_DC"
-                    style="@style/CardTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="https://google.com" />
+                    <TextView
+                        android:id="@+id/tv_title_DC"
+                        style="@style/CardTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextMain"
+                        android:textSize="@dimen/title_text_size"
+                        android:textStyle="bold"
+                        tools:text="Alpha-bank" />
 
-                <TextView
-                    android:id="@+id/tv_phone_DC"
-                    style="@style/CardTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="050 372 09 09" />
+                    <TextView
+                        android:id="@+id/tv_link_DC"
+                        style="@style/CardTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="https://google.com" />
 
-                <TextView
-                    android:id="@+id/tv_region_DC"
-                    style="@style/CardTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Transkarpatia" />
+                    <TextView
+                        android:id="@+id/tv_phone_DC"
+                        style="@style/CardTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="050 372 09 09" />
 
-                <TextView
-                    android:id="@+id/tv_city_DC"
-                    style="@style/CardTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Uzhhorod" />
+                    <TextView
+                        android:id="@+id/tv_region_DC"
+                        style="@style/CardTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Transkarpatia" />
 
-                <TextView
-                    android:id="@+id/tv_address_DC"
-                    style="@style/CardTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Korzo st.9" />
+                    <TextView
+                        android:id="@+id/tv_city_DC"
+                        style="@style/CardTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Uzhhorod" />
 
-                <TextView
-                    android:id="@+id/tv_org_type_DC"
-                    style="@style/CardTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Banks" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/tv_address_DC"
+                        style="@style/CardTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Korzo st.9" />
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorCardBackground"
-            android:padding="@dimen/card_padding"
-            card_view:cardElevation="@dimen/card_view_elevation">
+                    <TextView
+                        android:id="@+id/tv_org_type_DC"
+                        style="@style/CardTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Banks" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-            <LinearLayout
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@color/colorCardBackground"
+                android:padding="@dimen/card_padding"
+                card_view:cardElevation="@dimen/card_view_elevation">
 
-                <TextView
-                    style="@style/CardTextView"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/currency_name_rus" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    style="@style/CardTextView"
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ask_bid_str_rus" />
+                    <TextView
+                        style="@style/CardTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/currency_name_rus" />
+
+                    <TextView
+                        style="@style/CardTextView"
+                        android:layout_width="100sp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ask_bid_str_rus" />
 
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:background="@color/colorCardBackground"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/card_padding"
-            card_view:cardElevation="@dimen/card_view_elevation">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_DC"
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/card_padding" />
-        </android.support.v7.widget.CardView>
+                android:background="@color/colorCardBackground"
+                android:padding="@dimen/card_padding"
+                card_view:cardElevation="@dimen/card_view_elevation">
 
-    </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_DC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_padding" />
+            </android.support.v7.widget.CardView>
 
+        </LinearLayout>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/floating_menu"
+            fab:fab_addButtonColorNormal="@color/colorFloatingMenuPrimary"
+            fab:fab_addButtonColorPressed="@color/colorFloatingMenuSecondary"
+            fab:fab_addButtonPlusIconColor="#ffffff"
+            fab:fab_icon ="@drawable/ic_menu"
+            fab:fab_labelStyle="@style/floating_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_a"
+                fab:fab_addButtonColorNormal="@color/colorFloatingMenuSecondary"
+                fab:fab_addButtonColorPressed="@color/colorFloatingMenuPrimary"
+                fab:fab_icon="@drawable/ic_map_menu"
+                fab:fab_title="@string/menu_map"
+                fab:fab_labelStyle="@style/floating_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_site"
+                fab:fab_addButtonColorNormal="@color/colorFloatingMenuSecondary"
+                fab:fab_addButtonColorPressed="@color/colorFloatingMenuPrimary"
+                fab:fab_icon="@drawable/ic_link_menu"
+                fab:fab_title="@string/menu_link"
+                fab:fab_labelStyle="@style/floating_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_phone"
+                fab:fab_addButtonColorNormal="@color/colorFloatingMenuSecondary"
+                fab:fab_addButtonColorPressed="@color/colorFloatingMenuPrimary"
+                fab:fab_icon="@drawable/ic_phone_menu"
+                fab:fab_title="@string/menu_call"
+                fab:fab_labelStyle="@style/floating_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </RelativeLayout>
 </ScrollView>
