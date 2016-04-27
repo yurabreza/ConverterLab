@@ -73,11 +73,16 @@ public final class UpdateService extends Service {
         call.enqueue(new Callback<PublicCurrency>() {
             @Override
             public void onResponse(Response<PublicCurrency> response) {
+                boolean upd = false;
                 //boolean variable upd is true when actual date is newer and there is need to update
-                boolean upd = loadedDateNewer(response.body().getDate());
-                //saving new date
-                saveDate(response.body().getDate());
-
+                if (response.body() == null) {
+                    stop();
+                    sendMessage();
+                } else if (response.body().getDate() != null) {
+                    upd = loadedDateNewer(response.body().getDate());
+                    //saving new date
+                    saveDate(response.body().getDate());
+                }
 
                 dbHelper.writeDB(response.body(), upd, new Handler.Callback() {
                     @Override
@@ -112,7 +117,7 @@ public final class UpdateService extends Service {
     private boolean loadedDateNewer(String newDate) {
         SharedPreferences sPref = this.getSharedPreferences(Constants.CONVERT_LAB_S_PREFS, Context.MODE_PRIVATE);
         String s = sPref.getString(Constants.SAVE_DATE_KEY, null);
-        if (s==null) return false;
+        if (s == null) return false;
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         try {
             Date dateNew = df.parse(newDate);

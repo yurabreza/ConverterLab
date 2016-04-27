@@ -3,9 +3,6 @@ package com.example.yurab.converterlab.fragments.share_dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +25,7 @@ import com.example.yurab.converterlab.model.Organization;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,8 +38,11 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
     private List<CurrencyOrg> data;
     private ViewGroup container;
     private TextView tvTitle, tvRegion, tvCity;
-    private View root;
+    private View view;
     private LinearLayout linearLayout;
+    private ListView lvMain;
+    private CurrencyAdapter currencyAdapter;
+
 
     @Nullable
     @Override
@@ -49,8 +51,9 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
         Log.d("ShareDialogFragment", "onCreateView: " + id);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         this.container = container;
-        root = inflater.inflate(R.layout.share_content, container, false);
-        return root;
+        view = inflater.inflate(R.layout.share_content, container, false);
+
+        return view;
     }
 
     @Override
@@ -65,28 +68,31 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
     }
 
     private void init() {
-        tvTitle = (TextView) root.findViewById(R.id.tv_title_SC);
-        tvRegion = (TextView) root.findViewById(R.id.tv_region_SC);
-        tvCity = (TextView) root.findViewById(R.id.tv_city_SC);
+        tvTitle = (TextView) view.findViewById(R.id.tv_title_SC);
+        tvRegion = (TextView) view.findViewById(R.id.tv_region_SC);
+        tvCity = (TextView) view.findViewById(R.id.tv_city_SC);
         tvTitle.setText(organization.getTitle());
         tvRegion.setText(organization.getRegion());
         tvCity.setText(organization.getCity());
-        root.findViewById(R.id.btn_share_SC).setOnClickListener(this);
-
-        linearLayout = (LinearLayout) root.findViewById(R.id.linear_layout_SC);
+        view.findViewById(R.id.btn_share_SC).setOnClickListener(this);
 
 
-        CurrencyAdapter currencyAdapter = new CurrencyAdapter(getContext(), data);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linear_layout_SC);
 
-        // настраиваем список
-        ListView lvMain = (ListView) root.findViewById(R.id.list_view_SC);
+
+        currencyAdapter = new CurrencyAdapter(getContext(), data);
+
+
+        lvMain = (ListView) view.findViewById(R.id.list_view_SC);
         lvMain.setAdapter(currencyAdapter);
+
     }
 
 
     @Override
     public void onClick(View v) {
-        Bitmap icon = loadBitmapFromView(linearLayout);
+
+        Bitmap icon = getWholeListViewItemsToBitmap();
 
         shareBitmap(icon, organization.getTitle() + "-currencies");
     }
@@ -120,26 +126,49 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
 
     }
 
-    private Bitmap createInvertedBitmap(Bitmap src) {
-        ColorMatrix colorMatrix_Inverted =
-                new ColorMatrix(new float[]{
-                        -1, 0, 0, 0, 255,
-                        0, -1, 0, 0, 255,
-                        0, 0, -1, 0, 255,
-                        0, 0, 0, 1, 0});
 
-        ColorFilter ColorFilter_Sepia = new ColorMatrixColorFilter(
-                colorMatrix_Inverted);
+    public Bitmap getWholeListViewItemsToBitmap() {
 
-        Bitmap bitmap = Bitmap.createBitmap(src.getWidth(), src.getHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
+        ListView listview = lvMain;
+        ListAdapter adapter = listview.getAdapter();
+        int itemscount = adapter.getCount();
+        int allitemsheight = 0;
+        List<Bitmap> bmps = new ArrayList<Bitmap>();
+
+        Bitmap iconTop = loadBitmapFromView(linearLayout);
+
+        bmps.add(iconTop);
+        allitemsheight += iconTop.getHeight();
+
+        for (int i = 0; i < itemscount; i++) {
+
+            View childView = adapter.getView(i, null, listview);
+            childView.measure(View.MeasureSpec.makeMeasureSpec(listview.getWidth(), View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
+            childView.layout(0, 0, childView.getMeasuredWidth(), childView.getMeasuredHeight());
+            childView.setDrawingCacheEnabled(true);
+            childView.buildDrawingCache();
+            bmps.add(childView.getDrawingCache());
+            allitemsheight += childView.getMeasuredHeight();
+        }
+
+        Bitmap bigbitmap = Bitmap.createBitmap(listview.getMeasuredWidth(), allitemsheight, Bitmap.Config.ARGB_8888);
+        Canvas bigcanvas = new Canvas(bigbitmap);
 
         Paint paint = new Paint();
+        int iHeight = 0;
 
-        paint.setColorFilter(ColorFilter_Sepia);
-        canvas.drawBitmap(src, 0, 0, paint);
+        for (int i = 0; i < bmps.size(); i++) {
+            Bitmap bmp = bmps.get(i);
+            bigcanvas.drawBitmap(bmp, 0, iHeight, paint);
+            iHeight += bmp.getHeight();
 
-        return bitmap;
+            bmp.recycle();
+            bmp = null;
+        }
+
+
+        return bigbitmap;
     }
 }

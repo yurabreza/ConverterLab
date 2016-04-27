@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.yurab.converterlab.MainActivity;
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.constants.Constants;
 import com.example.yurab.converterlab.database.DBHelper;
@@ -69,18 +68,9 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
         swipeRefreshLayout.setOnRefreshListener(this);
         organizations = dbHelper.getOrgzList();
 
-        if (savedInstanceState != null) {
-            searchToken = savedInstanceState.getString(Constants.UPDATE_KEY);
-            MainActivity m = (MainActivity) getActivity();
-            Log.d(TAG, "onActivityCreated:   " + searchToken);
-
-        }
-
-
-        //this is alpha version of logic
+        createAdapter();
         if (!updateFirst) {
-            updateFirst = true;
-            //updateFirst  is false if this fragment is created first time
+            updateFirst =true;
             if (isNetworkAvaAvailable()) {
                 //alpha version of checking internet connection
                 //if there is connection and list in db is empty
@@ -102,11 +92,9 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
                     //if no internet but db is not empty creating adapter
                     createAdapter();
                 } else
-                    //showing toast that htere`s no connection and DB is empty
-                    Toast.makeText(getContext(), "NO internet and db is empty", Toast.LENGTH_LONG).show();
+                    //showing toast that there`s no connection and DB is empty
+                    Toast.makeText(getContext(), "NO internet and DB is empty", Toast.LENGTH_LONG).show();
             }
-        } else {
-            createAdapter();
         }
     }
 
@@ -159,11 +147,6 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
         getActivity().startService(new Intent(getActivity(), UpdateService.class));
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(Constants.UPDATE_KEY, searchToken);
-    }
 
     @Override
     public void onDestroy() {

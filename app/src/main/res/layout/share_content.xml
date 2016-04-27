@@ -40,14 +40,14 @@
             tools:text="Ужгород"
             android:background="#FFFFFF"/>
 
-
+    </LinearLayout>
         <ListView
             android:id="@+id/list_view_SC"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             tools:listitem="@layout/list_view_row"
             android:background="#FFFFFF"/>
-    </LinearLayout>
+
 
     <Button
         android:id="@+id/btn_share_SC"
