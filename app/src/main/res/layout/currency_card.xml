@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        tools:text="Доллар США" />
+        tools:text="доллар сША"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"

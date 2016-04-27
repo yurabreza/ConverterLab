@@ -60,7 +60,12 @@ public final class RVOrgzAdapter extends RecyclerView.Adapter<RVOrgzHolder> impl
     public void onBindViewHolder(RVOrgzHolder holder, int position) {
         holder.tvTitle.setText(organizationsAll.get(position).getTitle());
         holder.tvRegion.setText(organizationsAll.get(position).getRegion());
-        holder.tvCity.setText(organizationsAll.get(position).getCity());
+        if (organizationsAll.get(position).getRegion().toString().equals(organizationsAll.get(position).getCity().toString()))
+            holder.tvCity.setVisibility(View.GONE);
+        else {
+            holder.tvCity.setVisibility(View.VISIBLE);
+            holder.tvCity.setText(organizationsAll.get(position).getCity());
+        }
         holder.tvPhone.setText(prePhone + organizationsAll.get(position).getPhone());
         holder.tvAddress.setText(preAddress + organizationsAll.get(position).getAddress());
         Log.d(TAG, "onBindViewHolder: " + organizationsAll.get(position).getTitle().toString());

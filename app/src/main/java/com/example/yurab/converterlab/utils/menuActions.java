@@ -3,9 +3,13 @@ package com.example.yurab.converterlab.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.widget.Toast;
 
+import com.example.yurab.converterlab.MainActivity;
+import com.example.yurab.converterlab.constants.Constants;
+import com.example.yurab.converterlab.fragments.map.MapFragment;
 import com.example.yurab.converterlab.model.Organization;
 
 /**
@@ -15,17 +19,16 @@ import com.example.yurab.converterlab.model.Organization;
 public final class MenuActions {
 
     public void openMap(Context context,Organization organization) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.MAP_KEY_CITY,organization.getCity());
+        bundle.putString(Constants.MAP_KEY_REGION,organization.getRegion());
+        bundle.putString(Constants.MAP_KEY_ADDRESS,organization.getAddress());
+        bundle.putString(Constants.MAP_KEY_TITLE,organization.getTitle());
+        MainActivity m = (MainActivity) context;
 
-        String s = organization.getAddress().toString() + "," + organization.getCity().toString();
-        String map =  "https://www.google.com/maps?q"+ s;
-
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
-        try {
-            context.startActivity(intent);
-        }catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(context, "Web browser Activity not found", Toast.LENGTH_SHORT).show();
-        }
+        MapFragment mapFragment = new MapFragment();
+        mapFragment.setArguments(bundle);
+        m.commitFragmnet(mapFragment);
 
     }
 

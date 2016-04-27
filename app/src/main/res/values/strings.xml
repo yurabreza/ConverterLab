@@ -15,4 +15,5 @@
     <string name="menu_map">Карта</string>
     <string name="menu_link">Сайт</string>
     <string name="menu_call">Позвонить</string>
+    <string name="link">Ссылка :</string>
 </resources>

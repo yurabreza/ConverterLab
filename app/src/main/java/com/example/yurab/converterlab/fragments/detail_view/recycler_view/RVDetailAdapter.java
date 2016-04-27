@@ -23,6 +23,8 @@ public final class RVDetailAdapter extends RecyclerView.Adapter<RVDetailHolder> 
     private LayoutInflater inflater;
     private Drawable arrowGreen;
     private Drawable arrowRed;
+    private String basic ;
+    private String newString ;
 
 
     public RVDetailAdapter(Context _context, List<CurrencyOrg> _data) {
@@ -40,7 +42,9 @@ public final class RVDetailAdapter extends RecyclerView.Adapter<RVDetailHolder> 
 
     @Override
     public void onBindViewHolder(RVDetailHolder holder, int position) {
-        holder.tvTitle.setText(data.get(position).getCurrencyName());
+        basic = data.get(position).getCurrencyName();
+        newString =basic.substring(0,1).toUpperCase() + basic.substring(1);
+        holder.tvTitle.setText(newString);
         holder.tvAsk.setText(data.get(position).getAsk());
         holder.tvBid.setText(data.get(position).getBid());
 

@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.yurab.converterlab.R;
@@ -29,18 +31,14 @@ import java.util.List;
  * Created by Yura Breza
  * Date  25.04.2016.
  */
-public final class DetailFragment extends Fragment implements MenuItem.OnMenuItemClickListener, View.OnClickListener {
+public final class DetailFragment extends Fragment implements MenuItem.OnMenuItemClickListener,
+        View.OnClickListener ,FloatingActionsMenu.OnFloatingActionsMenuUpdateListener{
     private TextView tvTitle, tvLink, tvPhone, tvRegion, tvCity, tvAddress, tvOrgType;
     private ViewGroup container;
     private long id;
     private Organization organization;
     private List<CurrencyOrg> dataList;
-    private String link;
-    private String phone;
-    private String address;
-    private String city;
-    private String region;
-    private String orgType;
+    private FrameLayout fabTint;
 
 
     @Nullable
@@ -61,7 +59,7 @@ public final class DetailFragment extends Fragment implements MenuItem.OnMenuIte
 
     private void init() {
 
-        loadRes();
+
         DBHelper dbHelper = new DBHelper();
         organization = dbHelper.getOrgById(id);
 
@@ -72,22 +70,30 @@ public final class DetailFragment extends Fragment implements MenuItem.OnMenuIte
         tvCity = (TextView) container.findViewById(R.id.tv_city_DC);
         tvAddress = (TextView) container.findViewById(R.id.tv_address_DC);
         tvOrgType = (TextView) container.findViewById(R.id.tv_org_type_DC);
+        LinearLayout ll = (LinearLayout) container.findViewById(R.id.ll_pre_city_DC);
 
 
         tvTitle.setText(organization.getTitle());
-        tvLink.setText(link + organization.getLink());
-        tvPhone.setText(phone + organization.getPhone());
-        tvRegion.setText(region + organization.getRegion());
-        tvCity.setText(city + organization.getCity());
-        tvAddress.setText(address + organization.getAddress());
-        tvOrgType.setText(orgType + organization.getOrganizationType());
+        tvLink.setText(organization.getLink());
+        tvPhone.setText(organization.getPhone());
+        tvCity.setText(organization.getCity());
+        if (organization.getRegion().toString().equals(organization.getCity().toString())) {
+            ll.setVisibility(View.GONE);
+        } else {
+            ll.setVisibility(View.VISIBLE);
 
+            tvRegion.setText(organization.getRegion());
+        }
+        tvAddress.setText(organization.getAddress());
+        tvOrgType.setText(organization.getOrganizationType());
+        fabTint = (FrameLayout) container.findViewById(R.id.fabTint);
 
-        FloatingActionsMenu floatingActionsMenu= (FloatingActionsMenu) container.findViewById(R.id.floating_menu);
+        FloatingActionsMenu
+                floatingActionsMenu = (FloatingActionsMenu) container.findViewById(R.id.floating_menu);
         floatingActionsMenu.getChildAt(0).setOnClickListener(this);
         floatingActionsMenu.getChildAt(1).setOnClickListener(this);
         floatingActionsMenu.getChildAt(2).setOnClickListener(this);
-
+        container.findViewById(R.id.floating_menu).setOnClickListener(this);
 
 
         dataList = dbHelper.getCurrencyOrgList(organization.getIdString());
@@ -108,40 +114,44 @@ public final class DetailFragment extends Fragment implements MenuItem.OnMenuIte
         menu.findItem(R.id.menu_share).setOnMenuItemClickListener(this);
     }
 
-    private void loadRes() {
-        link = getActivity().getResources().getString(R.string.link_rus);
-        phone = getActivity().getResources().getString(R.string.pre_phone);
-        address = getActivity().getResources().getString(R.string.pre_address);
-        city = getActivity().getResources().getString(R.string.pre_city);
-        region = getActivity().getResources().getString(R.string.pre_region);
-        orgType = getActivity().getResources().getString(R.string.pre_org_type);
-    }
-
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         ShareDialogFragment shareDialogFragment = new ShareDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putLong(Constants.ID_KEY,id);
+        bundle.putLong(Constants.ID_KEY, id);
         shareDialogFragment.setArguments(bundle);
-        shareDialogFragment.show(getActivity().getSupportFragmentManager(),Constants.SHARE_DIALOG);
+        shareDialogFragment.show(getActivity().getSupportFragmentManager(), Constants.SHARE_DIALOG);
         return false;
     }
 
     @Override
     public void onClick(View v) {
         MenuActions menuActions = new MenuActions();
-        switch (v.getId()){
+
+        switch (v.getId()) {
+
             case (R.id.action_map):
-                menuActions.openMap(getContext(),organization);
+                menuActions.openMap(getContext(), organization);
                 break;
             case (R.id.action_phone):
-                menuActions.makeCall(getContext(),organization.getPhone());
+                menuActions.makeCall(getContext(), organization.getPhone());
                 break;
             case (R.id.action_site):
-                menuActions.openUrl(getContext(),organization.getLink());
+                menuActions.openUrl(getContext(), organization.getLink());
                 break;
+
         }
 
+    }
+
+    @Override
+    public void onMenuExpanded() {
+        fabTint.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onMenuCollapsed() {
+        fabTint.setVisibility(View.GONE);
     }
 }

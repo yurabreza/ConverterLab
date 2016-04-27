@@ -16,4 +16,8 @@ public final class Constants {
     public static final String SHARE_DIALOG = "share_dialog";
     public static final String SEARCH_VIEW = "searchView";
     public static final String ORGZ_FRAG_TAG ="orgzListFragment";
+    public static final String MAP_KEY_CITY ="map_key_city";
+    public static final String MAP_KEY_ADDRESS ="map_key_address";
+    public static final String MAP_KEY_TITLE ="map_key_title";
+    public static final String MAP_KEY_REGION = "map_key_region";
 }
