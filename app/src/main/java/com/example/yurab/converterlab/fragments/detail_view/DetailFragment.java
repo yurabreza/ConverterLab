@@ -20,6 +20,8 @@ import com.example.yurab.converterlab.fragments.detail_view.recycler_view.RVDeta
 import com.example.yurab.converterlab.fragments.share_dialog.ShareDialogFragment;
 import com.example.yurab.converterlab.model.CurrencyOrg;
 import com.example.yurab.converterlab.model.Organization;
+import com.example.yurab.converterlab.utils.MenuActions;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.List;
 
@@ -27,7 +29,7 @@ import java.util.List;
  * Created by Yura Breza
  * Date  25.04.2016.
  */
-public final class DetailFragment extends Fragment implements MenuItem.OnMenuItemClickListener {
+public final class DetailFragment extends Fragment implements MenuItem.OnMenuItemClickListener, View.OnClickListener {
     private TextView tvTitle, tvLink, tvPhone, tvRegion, tvCity, tvAddress, tvOrgType;
     private ViewGroup container;
     private long id;
@@ -81,6 +83,13 @@ public final class DetailFragment extends Fragment implements MenuItem.OnMenuIte
         tvOrgType.setText(orgType + organization.getOrganizationType());
 
 
+        FloatingActionsMenu floatingActionsMenu= (FloatingActionsMenu) container.findViewById(R.id.floating_menu);
+        floatingActionsMenu.getChildAt(0).setOnClickListener(this);
+        floatingActionsMenu.getChildAt(1).setOnClickListener(this);
+        floatingActionsMenu.getChildAt(2).setOnClickListener(this);
+
+
+
         dataList = dbHelper.getCurrencyOrgList(organization.getIdString());
 
         RecyclerView rv = (RecyclerView) container.findViewById(R.id.recycler_DC);
@@ -117,5 +126,22 @@ public final class DetailFragment extends Fragment implements MenuItem.OnMenuIte
         shareDialogFragment.setArguments(bundle);
         shareDialogFragment.show(getActivity().getSupportFragmentManager(),Constants.SHARE_DIALOG);
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        MenuActions menuActions = new MenuActions();
+        switch (v.getId()){
+            case (R.id.action_map):
+                menuActions.openMap(getContext(),organization);
+                break;
+            case (R.id.action_phone):
+                menuActions.makeCall(getContext(),organization.getPhone());
+                break;
+            case (R.id.action_site):
+                menuActions.openUrl(getContext(),organization.getLink());
+                break;
+        }
+
     }
 }

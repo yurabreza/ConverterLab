@@ -1,5 +1,9 @@
 package com.example.yurab.converterlab.fragments.share_dialog;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,6 +20,8 @@ import com.example.yurab.converterlab.database.DBHelper;
 import com.example.yurab.converterlab.model.CurrencyOrg;
 import com.example.yurab.converterlab.model.Organization;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 /**
@@ -61,7 +67,7 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
         tvCity.setText(organization.getCity());
         root.findViewById(R.id.btn_share_SC).setOnClickListener(this);
 
-        CurrencyAdapter currencyAdapter  = new CurrencyAdapter(getContext(),data );
+        CurrencyAdapter currencyAdapter = new CurrencyAdapter(getContext(), data);
 
         // настраиваем список
         ListView lvMain = (ListView) root.findViewById(R.id.list_view_SC);
@@ -71,6 +77,34 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
 
     @Override
     public void onClick(View v) {
+        Bitmap icon = loadBitmapFromView(root);
+        shareBitmap(icon, organization.getTitle() + "-currencies");
+    }
+
+    public static Bitmap loadBitmapFromView(View v) {
+        Bitmap b = Bitmap.createBitmap(350,450, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom() - 60);
+        v.draw(c);
+        return b;
+    }
+
+    private void shareBitmap(Bitmap bitmap, String fileName) {
+        try {
+            File file = new File(getContext().getCacheDir(), fileName + ".png");
+            FileOutputStream fOut = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            file.setReadable(true, false);
+            final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            intent.setType("image/png");
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }
