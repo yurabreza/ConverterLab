@@ -1,40 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:layout_height="450dp"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF" >
 
-    <TextView
-        android:id="@+id/tv_title_SC"
-        style="@style/CardTextView"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorTextMain"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold"
-        tools:text="Альфа Банк" />
-
-    <TextView
-        android:id="@+id/tv_region_SC"
-        style="@style/CardTextView"
+    <LinearLayout
+        android:id="@+id/linear_layout_SC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Закарпатская область" />
+        android:orientation="vertical"
+        android:background="#FFFFFF">
 
-    <TextView
-        android:id="@+id/tv_city_SC"
-        style="@style/CardTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Ужгород" />
+        <TextView
+            android:id="@+id/tv_title_SC"
+            style="@style/CardTextView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextMain"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            tools:text="Альфа Банк"
+            android:background="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/tv_region_SC"
+            style="@style/CardTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Закарпатская область"
+            android:background="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/tv_city_SC"
+            style="@style/CardTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Ужгород"
+            android:background="#FFFFFF"/>
 
 
         <ListView
             android:id="@+id/list_view_SC"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            tools:listitem="@layout/list_view_row" />
+            android:layout_height="200dp"
+            tools:listitem="@layout/list_view_row"
+            android:background="#FFFFFF"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_share_SC"

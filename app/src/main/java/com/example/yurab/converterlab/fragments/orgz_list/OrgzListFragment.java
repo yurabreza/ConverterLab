@@ -77,7 +77,7 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
         }
 
 
-        //this is alpha version of logic, needs to be refactored
+        //this is alpha version of logic
         if (!updateFirst) {
             updateFirst = true;
             //updateFirst  is false if this fragment is created first time

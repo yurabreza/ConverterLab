@@ -3,18 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="horizontal"
     android:padding="@dimen/outer_padding_xl">
 
     <TextView
         android:id="@+id/tv_currency_id_LVR"
         style="@style/CardTextView"
-        android:textStyle="bold"
-        android:textSize="@dimen/title_text_size"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="#FFFFFF"
         android:textAllCaps="true"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold"
         tools:text="eur" />
 
     <TextView
@@ -22,6 +24,7 @@
         style="@style/CardTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:textAllCaps="true"
         tools:text="25.4567/2498766" />
 

@@ -3,6 +3,10 @@ package com.example.yurab.converterlab.fragments.share_dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,6 +40,7 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
     private ViewGroup container;
     private TextView tvTitle, tvRegion, tvCity;
     private View root;
+    private LinearLayout linearLayout;
 
     @Nullable
     @Override
@@ -67,6 +73,9 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
         tvCity.setText(organization.getCity());
         root.findViewById(R.id.btn_share_SC).setOnClickListener(this);
 
+        linearLayout = (LinearLayout) root.findViewById(R.id.linear_layout_SC);
+
+
         CurrencyAdapter currencyAdapter = new CurrencyAdapter(getContext(), data);
 
         // настраиваем список
@@ -77,34 +86,60 @@ public class ShareDialogFragment extends android.support.v4.app.DialogFragment i
 
     @Override
     public void onClick(View v) {
-        Bitmap icon = loadBitmapFromView(root);
+        Bitmap icon = loadBitmapFromView(linearLayout);
+
         shareBitmap(icon, organization.getTitle() + "-currencies");
     }
 
     public static Bitmap loadBitmapFromView(View v) {
-        Bitmap b = Bitmap.createBitmap(350,450, Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
-        v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom() - 60);
+
+        v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
         v.draw(c);
         return b;
     }
 
     private void shareBitmap(Bitmap bitmap, String fileName) {
         try {
-            File file = new File(getContext().getCacheDir(), fileName + ".png");
+            File file = new File(getContext().getCacheDir(), fileName + ".jpeg");
             FileOutputStream fOut = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
             fOut.flush();
             fOut.close();
             file.setReadable(true, false);
             final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-            intent.setType("image/png");
+            intent.setType("image/jpeg");
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private Bitmap createInvertedBitmap(Bitmap src) {
+        ColorMatrix colorMatrix_Inverted =
+                new ColorMatrix(new float[]{
+                        -1, 0, 0, 0, 255,
+                        0, -1, 0, 0, 255,
+                        0, 0, -1, 0, 255,
+                        0, 0, 0, 1, 0});
+
+        ColorFilter ColorFilter_Sepia = new ColorMatrixColorFilter(
+                colorMatrix_Inverted);
+
+        Bitmap bitmap = Bitmap.createBitmap(src.getWidth(), src.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        Paint paint = new Paint();
+
+        paint.setColorFilter(ColorFilter_Sepia);
+        canvas.drawBitmap(src, 0, 0, paint);
+
+        return bitmap;
     }
 }
