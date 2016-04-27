@@ -72,4 +72,10 @@ public final class MainActivity extends AppCompatActivity {
         outState.putString(Constants.SEARCH_VIEW, searchView.getQuery().toString());
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTitle("ConverterLab");
+    }
 }
