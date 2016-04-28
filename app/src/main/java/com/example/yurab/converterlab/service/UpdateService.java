@@ -17,6 +17,7 @@ import com.example.yurab.converterlab.api.FinanceApi;
 import com.example.yurab.converterlab.constants.Constants;
 import com.example.yurab.converterlab.database.DBHelper;
 import com.example.yurab.converterlab.model.PublicCurrency;
+import com.example.yurab.converterlab.utils.Alarm;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,6 +42,7 @@ public final class UpdateService extends Service {
     private Retrofit retrofit;
     private FinanceApi financeApi;
     private Call<PublicCurrency> call;
+    private Alarm alarm = new Alarm();
 
 
     @Override
@@ -57,7 +59,9 @@ public final class UpdateService extends Service {
 
         call = financeApi.load();
         updateDb();
+        alarm.SetAlarm(this);
     }
+
 
     @Nullable
     @Override

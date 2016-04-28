@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.yurab.converterlab.MainActivity;
 import com.example.yurab.converterlab.R;
 import com.example.yurab.converterlab.constants.Constants;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -58,15 +57,14 @@ public class MapFragment extends Fragment {
         addressGeo = getArguments().getString(Constants.MAP_KEY_ADDRESS);
         title = getArguments().getString(Constants.MAP_KEY_TITLE);
         addressGeo =
-                "Украина, " + getArguments().getString(Constants.MAP_KEY_REGION) + ", " + city + ", " + addressGeo;
+                "Украина, "+ city + ", " + addressGeo;
         return inflater.inflate(R.layout.map_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MainActivity m  = (MainActivity) getContext();
-        m.setTitle(title);
+;
         FragmentManager fm = getChildFragmentManager();
         fragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
         if (fragment == null) {

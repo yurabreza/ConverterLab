@@ -45,7 +45,7 @@ public final class OrgzListFragment extends Fragment implements SwipeRefreshLayo
     private RecyclerView recyclerView;
     private RVOrgzAdapter rvOrgzAdapter;
     private boolean isFirstTime = false;
-    private static boolean updateFirst = false;
+    public static boolean updateFirst = false;
 
 
     @Nullable

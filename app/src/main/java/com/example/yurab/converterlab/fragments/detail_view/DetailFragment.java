@@ -32,7 +32,7 @@ import java.util.List;
  * Date  25.04.2016.
  */
 public final class DetailFragment extends Fragment implements MenuItem.OnMenuItemClickListener,
-        View.OnClickListener ,FloatingActionsMenu.OnFloatingActionsMenuUpdateListener{
+        View.OnClickListener {
     private TextView tvTitle, tvLink, tvPhone, tvRegion, tvCity, tvAddress, tvOrgType;
     private ViewGroup container;
     private long id;
@@ -86,7 +86,7 @@ public final class DetailFragment extends Fragment implements MenuItem.OnMenuIte
         }
         tvAddress.setText(organization.getAddress());
         tvOrgType.setText(organization.getOrganizationType());
-        fabTint = (FrameLayout) container.findViewById(R.id.fabTint);
+
 
         FloatingActionsMenu
                 floatingActionsMenu = (FloatingActionsMenu) container.findViewById(R.id.floating_menu);
@@ -145,13 +145,5 @@ public final class DetailFragment extends Fragment implements MenuItem.OnMenuIte
 
     }
 
-    @Override
-    public void onMenuExpanded() {
-        fabTint.setVisibility(View.VISIBLE);
-    }
 
-    @Override
-    public void onMenuCollapsed() {
-        fabTint.setVisibility(View.GONE);
-    }
 }
