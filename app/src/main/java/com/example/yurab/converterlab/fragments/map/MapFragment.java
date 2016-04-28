@@ -28,7 +28,7 @@ import java.util.List;
  * Created by Yura Breza
  * Date  27.04.2016.
  */
-public class MapFragment extends Fragment {
+public final class MapFragment extends Fragment {
 
     private SupportMapFragment fragment;
     private GoogleMap map;
@@ -87,19 +87,19 @@ public class MapFragment extends Fragment {
             map.getUiSettings().setZoomControlsEnabled(true);
             map.getUiSettings().setCompassEnabled(true);
             map.getUiSettings().setMyLocationButtonEnabled(true);
-            Toast.makeText(getContext(), addressGeo, Toast.LENGTH_SHORT).show();
+
             Geocoder geocoder = new Geocoder(getContext());
             List<Address> addresses;
             try {
                 addresses = geocoder.getFromLocationName(addressGeo, 1);
                 Address address = addresses.get(0);
                 LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                Toast.makeText(getContext(), String.valueOf(latLng), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), String.valueOf(title), Toast.LENGTH_SHORT).show();
                 map.addMarker(new MarkerOptions().position(latLng).title(title));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,17));
             } catch (Exception e) {
                 e.printStackTrace();
-
+                Toast.makeText(getContext(),"Address not found\nTry another Organization,\nunder construction", Toast.LENGTH_LONG).show();
             }
         }
     }

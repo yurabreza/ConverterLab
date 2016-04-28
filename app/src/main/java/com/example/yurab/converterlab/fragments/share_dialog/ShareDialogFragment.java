@@ -32,7 +32,7 @@ import java.util.List;
  * Created by Yura Breza
  * Date  26.04.2016.
  */
-public class ShareDialogFragment extends android.support.v4.app.DialogFragment implements View.OnClickListener {
+public final class ShareDialogFragment extends android.support.v4.app.DialogFragment implements View.OnClickListener {
     private long id;
     private Organization organization;
     private List<CurrencyOrg> data;

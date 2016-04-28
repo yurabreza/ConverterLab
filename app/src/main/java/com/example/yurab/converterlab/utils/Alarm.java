@@ -12,7 +12,7 @@ import com.example.yurab.converterlab.service.UpdateService;
 /**
  * Created by yurab on 28.04.2016.
  */
-public class Alarm extends BroadcastReceiver {
+public final class Alarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 

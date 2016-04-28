@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Yura Breza
  * Date  26.04.2016.
  */
-public class OrganizationFilter extends Filter {
+public final class OrganizationFilter extends Filter {
     private List<Organization> originalList;
     private List<Organization> filteredList;
     private RVOrgzAdapter rvOrgzAdapter;

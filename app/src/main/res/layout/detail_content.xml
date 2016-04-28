@@ -195,6 +195,7 @@
 
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_view_title_curr_DC"
@@ -202,19 +203,18 @@
             android:padding="@dimen/card_padding"
             card_view:cardElevation="@dimen/card_view_elevation">
 
-            <ScrollView
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_DC"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/card_view_main_DC"
+                android:padding="@dimen/card_padding" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_DC"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/card_padding" />
-            </ScrollView>
+
         </android.support.v7.widget.CardView>
-
-
 
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -222,15 +222,12 @@
             android:id="@+id/floating_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_alignParentTop="true"
+            android:paddingTop="400dp"
             android:scaleType="centerInside"
-
-
             android:src="@drawable/ic_menu"
             fab:fab_addButtonColorNormal="@color/colorFloatingMenuPrimary"
             fab:fab_addButtonColorPressed="@color/colorFloatingMenuSecondary"
@@ -248,10 +245,10 @@
                 android:tint="#ffffff"
                 fab:fab_addButtonColorNormal="@color/colorFloatingMenuSecondary"
                 fab:fab_addButtonColorPressed="@color/colorFloatingMenuPrimary"
+                fab:fab_icon="@drawable/ic_map_menu"
                 fab:fab_labelStyle="@style/floating_menu"
                 fab:fab_size="mini"
-                fab:fab_title="@string/menu_map"
-                fab:fab_icon="@drawable/ic_map_menu"/>
+                fab:fab_title="@string/menu_map" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_site"
@@ -264,10 +261,10 @@
                 android:tint="#ffffff"
                 fab:fab_addButtonColorNormal="@color/colorFloatingMenuSecondary"
                 fab:fab_addButtonColorPressed="@color/colorFloatingMenuPrimary"
+                fab:fab_icon="@drawable/ic_link_menu"
                 fab:fab_labelStyle="@style/floating_menu"
                 fab:fab_size="mini"
-                fab:fab_title="@string/menu_link"
-                fab:fab_icon="@drawable/ic_link_menu"/>
+                fab:fab_title="@string/menu_link" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_phone"
@@ -287,6 +284,6 @@
                 fab:fab_title="@string/menu_call" />
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
     </RelativeLayout>
+
 </ScrollView>

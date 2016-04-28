@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Yura Breza
  * Date  26.04.2016.
  */
-public class CurrencyAdapter extends BaseAdapter {
+public final class CurrencyAdapter extends BaseAdapter {
     private Context context;
     private List<CurrencyOrg> data;
     private LayoutInflater inflater;
