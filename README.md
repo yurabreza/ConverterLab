@@ -4,7 +4,8 @@ Final work in ThinkMobiles IT School
 ------------------------------------
 Ukrainian Currency exchange monitoring
 --------------------------------------
-GMaps geolocation находит не все банки, не успел + floating point menu ...
+Screens:
+--------
 Main
 ----
 ![alt tag](http://s32.postimg.org/lo7881k51/Screenshot_3.jpg)
