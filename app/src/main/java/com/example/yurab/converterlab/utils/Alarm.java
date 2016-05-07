@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.yurab.converterlab.fragments.orgz_list.OrgzListFragment;
 import com.example.yurab.converterlab.service.UpdateService;
 
 /**
@@ -16,7 +15,7 @@ public final class Alarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        if (!OrgzListFragment.updateFirst)
+
             context.startService(new Intent(context, UpdateService.class));
 
 
